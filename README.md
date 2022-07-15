@@ -1,2 +1,2 @@
-# ProgWeb_av3_Spring_REST_Java
+# Terceira Avaliação de Programação Web - Java - Spring - API
 Projeto da 3ª unidade da disciplina de Programação Web com base no modelo de arquitetura REST
