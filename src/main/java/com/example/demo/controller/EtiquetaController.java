@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.domain.Camisa;
-import com.example.demo.dto.CamisaRequestDTO;
-import com.example.demo.dto.CamisaResponseDTO;
-import com.example.demo.service.CamisaService;
+import com.example.demo.domain.Etiqueta;
+import com.example.demo.dto.EtiquetaRequestDTO;
+import com.example.demo.dto.EtiquetaResponseDTO;
+import com.example.demo.service.EtiquetaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,47 +19,47 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class EtiquetaController {
 
-   CamisaService service;
+    EtiquetaService service;
     ModelMapper modelMapper = new ModelMapper();
 
 
-    public EtiquetaController(CamisaService service) {
+    public EtiquetaController(EtiquetaService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Camisa> findAll(){
+    public List<Etiqueta> findAll(){
         return service.findAll();
     }
 
     @GetMapping(path = {"/{id}"})
-    public ResponseEntity<CamisaResponseDTO> findById(@PathVariable Long id){
-        Optional<Camisa> c  = service.findById(id);
+    public ResponseEntity<EtiquetaResponseDTO> findById(@PathVariable Long id){
+        Optional<Etiqueta> c  = service.findById(id);
         if (c.isPresent()){
-            Camisa cliente = c.get();
-            CamisaResponseDTO clienteResponseDto = modelMapper.map(cliente, CamisaResponseDTO.class);
-            clienteResponseDto.addHateoasLinks(cliente.getId());
+            Etiqueta etiqueta = c.get();
+            EtiquetaResponseDTO etiquetaResponseDto = modelMapper.map(etiqueta, EtiquetaResponseDTO.class);
+            etiquetaResponseDto.addHateoasLinks(etiqueta.getId());
 
-            return ResponseEntity.ok().body(clienteResponseDto);
+            return ResponseEntity.ok().body(etiquetaResponseDto);
         }else{
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Camisa> insert(@RequestBody CamisaRequestDTO c) throws URISyntaxException {
-        Camisa novo = modelMapper.map(c, Camisa.class);
+    public ResponseEntity<Etiqueta> insert(@RequestBody EtiquetaRequestDTO c) throws URISyntaxException {
+        Etiqueta novo = modelMapper.map(c, Etiqueta.class);
         service.create(novo);
-        URI uri = new URI("/camisa/" + novo.getId());
+        URI uri = new URI("/etiqueta/" + novo.getId());
         return ResponseEntity.created(uri).build();
     }
 
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Camisa> update (@PathVariable Long id, @RequestBody Camisa c){
+    public ResponseEntity<Etiqueta> update (@PathVariable Long id, @RequestBody Etiqueta c){
         if (service.findById(id).isPresent()){
-            Camisa atualizado = service.update(c);
+            Etiqueta atualizado = service.update(c);
             return ResponseEntity.ok().body(atualizado);
         }else{
             return ResponseEntity.notFound().build();
