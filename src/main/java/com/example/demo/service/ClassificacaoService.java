@@ -1,21 +1,21 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Etiqueta;
-import com.example.demo.repository.EtiquetaRepository;
+import com.example.demo.domain.Classificacao;
+import com.example.demo.repository.ClassificacaoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EtiquetaService {
-    EtiquetaRepository repository;
+public class ClassificacaoService {
+    ClassificacaoRepository repository;
 
-    public EtiquetaService(EtiquetaRepository repository) {
+    public ClassificacaoService(ClassificacaoRepository repository) {
         this.repository = repository;
     }
 
-    public Etiqueta create(Etiqueta c){
+    public Classificacao create(Classificacao c){
         return repository.save(c);
     }
 
@@ -23,15 +23,15 @@ public class EtiquetaService {
         repository.deleteById(id);
     }
 
-    public Etiqueta update(Etiqueta c){
+    public Classificacao update(Classificacao c){
         return repository.saveAndFlush(c);
     }
 
-    public Optional<Etiqueta> findById(Long id){
+    public Optional<Classificacao> findById(Long id){
         return repository.findById(id);
     }
 
-    public List<Etiqueta> findAll(){
+    public List<Classificacao> findAll(){
         return repository.findAll();
     }
 }
